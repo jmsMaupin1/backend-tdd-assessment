@@ -6,11 +6,21 @@ __author__ = "???"
 
 
 import sys
+import argparse
 
 
 def create_parser():
     """Creates and returns an argparse cmd line option parser"""
-    pass
+    parser = argparse.ArgumentParser(
+        description='Preform transformation given some text'
+    )
+
+    parser.add_argument('-u', '--upper', help='convert text to uppercase', action='store_true')
+    parser.add_argument('-l', '--lower', help='convert text to lowercase', action='store_true')
+    parser.add_argument('-t', '--title', help='convert text to titlecase', action='store_true')
+    parser.add_argument('text', help='text to modify')
+
+    return parser
 
 
 def main(args):
@@ -19,4 +29,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    pass
+    main(sys.argv[1:])
