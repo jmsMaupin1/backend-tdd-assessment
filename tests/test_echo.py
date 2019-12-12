@@ -18,7 +18,7 @@ class TestEcho(unittest.TestCase):
             ["python", "./echo.py", "-h"],
             stdout=subprocess.PIPE)
         stdout, _ = process.communicate()
-        usage = open("./USAGE", "r").read() + "\n"
+        usage = open("./USAGE", "r").read()
 
         self.assertEquals(stdout, usage)
 
