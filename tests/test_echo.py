@@ -3,22 +3,13 @@
 
 import unittest
 import subprocess
+import echo
 
 
 # Your test case class goes here
 class TestEcho(unittest.TestCase):
 
-    def call_echo(self, option, test_input=None):
-        command = ['python', './echo.py']
-        command.extend([option, test_input])
-        process = subprocess.Popen(
-            command,
-            stdout=subprocess.PIPE
-        )
-        stdout, _ = process.communicate()
-
-        return stdout
-
+    # This test is dumb and doesnt work (ask for help)
     def test_help(self):
         """Running the program without arguments should show usage."""
         # Run the command `python ./echo.py -h` in a separate process, then
@@ -27,37 +18,37 @@ class TestEcho(unittest.TestCase):
             ["python", "./echo.py", "-h"],
             stdout=subprocess.PIPE)
         stdout, _ = process.communicate()
-        usage = open("./USAGE", "r").read()
+        usage = open("./USAGE", "r").read() + "\n"
 
         self.assertEquals(stdout, usage)
 
     def test_upper_short(self):
-        stdout = self.call_echo('-u', 'hello')
+        stdout = echo.main(['-u', 'hello'])
         self.assertEquals(stdout, 'HELLO')
 
     def test_upper_long(self):
-        stdout = self.call_echo('--upper', 'hello')
+        stdout = echo.main(['--upper', 'hello'])
         self.assertEquals(stdout, 'HELLO')
 
     def test_lower_short(self):
-        stdout = self.call_echo('-l', 'HELLO')
+        stdout = echo.main(['-l', 'HELLO'])
         self.assertEquals(stdout, 'hello')
 
     def test_lower_long(self):
-        stdout = self.call_echo('--lower', 'HELLO')
+        stdout = echo.main(['--lower', 'HELLO'])
         self.assertEquals(stdout, 'hello')
 
     def test_title_short(self):
-        stdout = self.call_echo('-t', 'HELLO')
+        stdout = echo.main(['-t', 'HELLO'])
         self.assertEquals(stdout, 'Hello')
 
     def test_title_long(self):
-        stdout = self.call_echo('--title', 'HELLO')
+        stdout = echo.main(['--title', 'HELLO'])
         self.assertEquals(stdout, 'Hello')
 
     def test_multiple_flags(self):
-        tul = self.call_echo('-tul', 'heLLo')
-        ul = self.call_echo('-ul', 'heLLo')
+        tul = echo.main(['-tul', 'heLLo'])
+        ul = echo.main(['-ul', 'heLLo'])
         self.assertEquals(tul, 'Hello')
         self.assertEquals(ul, 'hello')
 
