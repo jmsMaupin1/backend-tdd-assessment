@@ -52,6 +52,10 @@ class TestEcho(unittest.TestCase):
         self.assertEquals(tul, 'Hello')
         self.assertEquals(ul, 'hello')
 
+    def test_no_flags(self):
+        no_flags = echo.main(['hello'])
+        self.assertEquals(no_flags, 'hello')
+
 
 if __name__ == '__main__':
     unittest.main()
